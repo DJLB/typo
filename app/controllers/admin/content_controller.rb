@@ -6,9 +6,25 @@ class Admin::ContentController < Admin::BaseController
 
   cache_sweeper :blog_sweeper
 
+
+
   def auto_complete_for_article_keywords
     @items = Tag.find_with_char params[:article][:keywords].strip
     render :inline => "<%= raw auto_complete_result @items, 'name' %>"
+  end
+
+  def merge_with
+    if (Profile.find(current_user.profile_id).label == "admin")
+      if Article.find_by_id(params[:id]).merge_with(params[:merge_with])
+        redirect_to :action => :index
+      else
+        flash[:notice] = _("Invalid Article ID")
+        redirect_to :action => :edit, :id => params[:id]
+      end
+    else
+      flase[:notice] = _("Lack permission to merge")
+      redirect_to :action => :edit, :id => params[:id]
+    end
   end
 
   def index
@@ -237,7 +253,10 @@ class Admin::ContentController < Admin::BaseController
 
   end
 
+
+
   def setup_resources
     @resources = Resource.by_created_at
   end
+
 end

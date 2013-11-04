@@ -59,6 +59,11 @@ module Article::States
 
 
   class Published < Base
+
+    def merge_with(other_article_id)
+      #STUFF
+    end
+    
     def enter_hook
       super
       content[:published] = true
