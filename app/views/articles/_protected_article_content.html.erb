@@ -1,4 +1,3 @@
-<!-- <% if article.password.nil? or article.password.empty? %> -->
 <% if article.password.nil? or article.password.blank? %>
   <%= render 'articles/article_content', { :article => article } %>
 <% else %>
