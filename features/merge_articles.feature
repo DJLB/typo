@@ -15,11 +15,11 @@ Background:
 
 
 Scenario:  A non-admin cannot merge two articles
-	Given I am logged in as contributor
+	Given I am not logged in as admin
 	Given I am on the edit article page
 	Then I should not see "Merge"
 
-Scenario: Merged article should contain both texts
+Scenario: When articles are merged, the merged article should contain the text of both previous articles
 	Given "Foobar" and "Bazbar" have been merged into "Foobar"
 	When I follow "Foobar"
 	Then I should see "Dolor Sit Amet"
